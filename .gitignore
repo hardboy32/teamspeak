@@ -1,0 +1,10 @@
+logs/
+*.log
+*.pid
+*.lock
+ts3server.sqlitedb
+ts3server.sqlitedb-shm
+ts3server.sqlitedb-wal
+files/
+ts3server.ini
+.env
