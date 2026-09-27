@@ -1,25 +1,31 @@
-# TeamSpeak 3 Server — Infrlo
+# TeamSpeak 6 Server — Infrlo
 
-Standalone TeamSpeak 3 server project for deployment on Infrlo.
+Standalone **TeamSpeak 6 Server Beta** project for deployment on Infrlo.
 
-## Default ports
+The project downloads the latest selected official TS6 Linux amd64 release automatically from the official TeamSpeak GitHub release.
 
-- Voice: UDP 9987
-- File transfer: TCP 30033
-- ServerQuery: TCP 10011
-- ServerQuery SSH: TCP 10022
+## Current version
 
-TeamSpeak officially requires UDP 9987 for voice and TCP 30033 for file transfer. ServerQuery is optional.
+**6.0.0-beta13.1**
+
+TeamSpeak 6 is currently in beta. The official server includes a 32-slot beta license during the evaluation period. TS3 licenses are not compatible with TS6.
+
+## Ports
+
+- Voice: **UDP 9987**
+- File transfer: **TCP 30033**
+
+Voice is the important port for the first Infrlo test.
 
 ## Infrlo
 
-Build command:
+### Build Command
 
 ```bash
-apt-get update && apt-get install -y curl bzip2 tar ca-certificates
+apt-get update && apt-get install -y curl ca-certificates python3 tar gzip bzip2 xz-utils
 ```
 
-Start command:
+### Start Command
 
 ```bash
 bash start.sh
@@ -27,21 +33,22 @@ bash start.sh
 
 ## Optional environment variables
 
-If Infrlo gives the project different external ports, set:
+If Infrlo assigns different external ports, set:
 
 ```
 TS_VOICE_PORT=9987
 TS_FILETRANSFER_PORT=30033
-TS_QUERY_PORT=10011
-TS_QUERY_SSH_PORT=10022
 ```
 
-The first test should focus on the UDP voice port.
+## Important Infrlo test
 
-## License
+Even if the TeamSpeak 6 process starts successfully, users must be able to reach the server's **UDP voice port** from the Internet.
 
-TeamSpeak states that a self-hosted non-commercial TS3 server can use the included default license for 1 virtual server and up to 32 slots.
+So the first test is:
 
-## Important
+1. Deploy this project.
+2. Wait for the TS6 startup log.
+3. Try connecting from a TeamSpeak 6 or TS3 client using the public host/IP and the UDP voice port.
+4. If the process starts but clients cannot connect, the likely limitation is Infrlo's public UDP networking rather than TeamSpeak 6 itself.
 
-The server binary is downloaded from TeamSpeak's official file host at deploy time. It is not stored in this repository.
+TeamSpeak officially states that TS6, TS3 and app clients can connect to the same TeamSpeak server when configured accordingly.
